@@ -13,8 +13,8 @@
     <label>No Absen:</label><br>
     <input type="text" id="no_absen" required><br><br>
 
-    <label>Lokasi:</label><br>
-    <input type="text" id="lokasi"><br><br>
+    <label>Lokasi (Otomatis):</label><br>
+    <input type="text" id="lokasi" readonly><br><br>
 
     <button type="submit">Absen</button>
   </form>
@@ -24,6 +24,23 @@
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbyqX-NGTh6rzp4_UpZcxWauMzj2lzkv802gMnLaZWyRt2PYRAmw_FiSyFIkhBgirqKZ/exec"; // Ganti dengan URL Apps Script
 
+    // Ambil lokasi otomatis
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          let lat = pos.coords.latitude;
+          let lon = pos.coords.longitude;
+          document.getElementById("lokasi").value = lat + ", " + lon;
+        },
+        (err) => {
+          document.getElementById("lokasi").value = "Lokasi tidak tersedia";
+        }
+      );
+    } else {
+      document.getElementById("lokasi").value = "Browser tidak support GPS";
+    }
+
+    // Proses submit absensi
     document.getElementById("absensiForm").addEventListener("submit", e => {
       e.preventDefault();
 
