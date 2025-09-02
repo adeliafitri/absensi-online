@@ -95,8 +95,21 @@
       <label>No Absen:</label>
       <input type="text" id="no_absen" required>
 
+<!--       <label>Lokasi (Otomatis):</label>
+      <input type="text" id="lokasi" readonly> -->
+
       <label>Lokasi (Otomatis):</label>
       <input type="text" id="lokasi" readonly>
+      <div id="mapPreview" style="margin-top:15px; display:none;">
+        <iframe 
+          id="mapFrame"
+          width="100%" 
+          height="250" 
+          style="border-radius:10px; border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
 
       <button type="submit">Absen</button>
     </form>
@@ -112,7 +125,14 @@
         (pos) => {
           let lat = pos.coords.latitude;
           let lon = pos.coords.longitude;
+    
+          // Isi input
           document.getElementById("lokasi").value = lat + ", " + lon;
+    
+          // Tampilkan peta
+          let mapURL = `https://www.google.com/maps?q=${lat},${lon}&z=15&output=embed`;
+          document.getElementById("mapFrame").src = mapURL;
+          document.getElementById("mapPreview").style.display = "block";
         },
         () => {
           document.getElementById("lokasi").value = "Lokasi tidak tersedia";
@@ -121,6 +141,20 @@
     } else {
       document.getElementById("lokasi").value = "Browser tidak support GPS";
     }
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(
+    //     (pos) => {
+    //       let lat = pos.coords.latitude;
+    //       let lon = pos.coords.longitude;
+    //       document.getElementById("lokasi").value = lat + ", " + lon;
+    //     },
+    //     () => {
+    //       document.getElementById("lokasi").value = "Lokasi tidak tersedia";
+    //     }
+    //   );
+    // } else {
+    //   document.getElementById("lokasi").value = "Browser tidak support GPS";
+    // }
 
     // Proses submit absensi
     document.getElementById("absensiForm").addEventListener("submit", e => {
