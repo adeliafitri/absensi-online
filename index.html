@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Absensi Online</title>
+</head>
+<body>
+  <h2>Form Absensi</h2>
+  <form id="absensiForm">
+    <label>Nama:</label><br>
+    <input type="text" id="nama" required><br><br>
+
+    <label>No Absen:</label><br>
+    <input type="text" id="no_absen" required><br><br>
+
+    <label>Lokasi:</label><br>
+    <input type="text" id="lokasi"><br><br>
+
+    <button type="submit">Absen</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyqX-NGTh6rzp4_UpZcxWauMzj2lzkv802gMnLaZWyRt2PYRAmw_FiSyFIkhBgirqKZ/exec"; // Ganti dengan URL Apps Script
+
+    document.getElementById("absensiForm").addEventListener("submit", e => {
+      e.preventDefault();
+
+      let data = {
+        nama: document.getElementById("nama").value,
+        no_absen: document.getElementById("no_absen").value,
+        lokasi: document.getElementById("lokasi").value
+      };
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById("status").innerText = "Absensi berhasil ✅";
+        document.getElementById("absensiForm").reset();
+      })
+      .catch(err => {
+        document.getElementById("status").innerText = "Gagal absen ❌";
+      });
+    });
+  </script>
+</body>
+</html>
