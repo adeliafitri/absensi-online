@@ -13,53 +13,65 @@
       height: 100vh;
       margin: 0;
     }
+    
     .container {
       background: #fff;
-      padding: 25px 30px;
-      border-radius: 12px;
+      padding: 30px 35px; /* kanan kiri lebih lega */
+      border-radius: 16px;
       box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px; /* form lebih stabil */
+      box-sizing: border-box; /* supaya padding masuk hitungan */
     }
+    
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: #333;
     }
+    
+    form {
+      display: flex;
+      flex-direction: column; /* biar rapi vertikal */
+    }
+    
     label {
       font-weight: bold;
-      display: block;
-      margin-top: 10px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #444;
     }
+    
     input {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 12px 14px;
+      border-radius: 10px;
       border: 1px solid #ccc;
       outline: none;
-      margin-bottom: 15px;
-      font-size: 14px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      box-sizing: border-box;
     }
+    
     input:focus {
       border-color: #6c63ff;
       box-shadow: 0 0 6px rgba(108, 99, 255, 0.3);
     }
+    
     button {
-      width: 100%;
-      padding: 12px;
+      padding: 14px;
       background: #6c63ff;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
       transition: 0.3s;
     }
+    
     button:hover {
       background: #574fd6;
     }
+    
     #status {
       text-align: center;
       margin-top: 15px;
