@@ -1,25 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <title>Absensi Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      color: #444;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    input:focus {
+      border-color: #6c63ff;
+      box-shadow: 0 0 6px rgba(108, 99, 255, 0.3);
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #574fd6;
+    }
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-  <h2>Form Absensi</h2>
-  <form id="absensiForm">
-    <label>Nama:</label><br>
-    <input type="text" id="nama" required><br><br>
+  <div class="container">
+    <h2>Absensi Online</h2>
+    <form id="absensiForm">
+      <label>Nama:</label>
+      <input type="text" id="nama" required>
 
-    <label>No Absen:</label><br>
-    <input type="text" id="no_absen" required><br><br>
+      <label>No Absen:</label>
+      <input type="text" id="no_absen" required>
 
-    <label>Lokasi (Otomatis):</label><br>
-    <input type="text" id="lokasi" readonly><br><br>
+      <label>Lokasi (Otomatis):</label>
+      <input type="text" id="lokasi" readonly>
 
-    <button type="submit">Absen</button>
-  </form>
-
-  <p id="status"></p>
+      <button type="submit">Absen</button>
+    </form>
+    <p id="status"></p>
+  </div>
 
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbyqX-NGTh6rzp4_UpZcxWauMzj2lzkv802gMnLaZWyRt2PYRAmw_FiSyFIkhBgirqKZ/exec"; // Ganti dengan URL Apps Script
@@ -32,7 +102,7 @@
           let lon = pos.coords.longitude;
           document.getElementById("lokasi").value = lat + ", " + lon;
         },
-        (err) => {
+        () => {
           document.getElementById("lokasi").value = "Lokasi tidak tersedia";
         }
       );
@@ -55,12 +125,14 @@
         body: JSON.stringify(data)
       })
       .then(res => res.json())
-      .then(res => {
+      .then(() => {
         document.getElementById("status").innerText = "Absensi berhasil ✅";
+        document.getElementById("status").className = "success";
         document.getElementById("absensiForm").reset();
       })
-      .catch(err => {
+      .catch(() => {
         document.getElementById("status").innerText = "Gagal absen ❌";
+        document.getElementById("status").className = "error";
       });
     });
   </script>
