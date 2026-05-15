@@ -159,18 +159,17 @@
     // Proses submit absensi
     document.getElementById("absensiForm").addEventListener("submit", e => {
       e.preventDefault();
-
-      let data = {
-        nama: document.getElementById("nama").value,
-        no_absen: document.getElementById("no_absen").value,
-        lokasi: document.getElementById("lokasi").value
-      };
-
+    
+      let formData = new FormData();
+      formData.append("nama", document.getElementById("nama").value);
+      formData.append("no_absen", document.getElementById("no_absen").value);
+      formData.append("lokasi", document.getElementById("lokasi").value);
+    
       fetch(scriptURL, {
         method: "POST",
-        body: JSON.stringify(data)
+        body: formData,
+        mode: "no-cors"
       })
-      .then(res => res.json())
       .then(() => {
         document.getElementById("status").innerText = "Absensi berhasil ✅";
         document.getElementById("status").className = "success";
